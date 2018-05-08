@@ -1,3 +1,4 @@
+var map = null;
 function createMap(){
     return L.map('mapid', {
         center: [50.93414, -1.39550],
@@ -137,8 +138,6 @@ function loadFood(){
                     var markerF = L.marker(new L.LatLng(lat, lng));
                     markerF.bindPopup(dataFood[i][2]);
                     foodMarkers.addLayer(markerF);
-                }else{
-                    console.log(dataFood[i][2]);
                 }
             }
         }
@@ -176,10 +175,10 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
 
 //method to load all resources to the map (and the map)
 function load(){
-    var map, baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
+    var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
     var overlays = {};
     var tiles = null;
-    var map = createMap();
+    map = createMap();
     loadMapTiles().addTo(map);
     var temp = loadCrimes();
     overlays["Crime Heatmap"] = temp[0];
@@ -190,4 +189,25 @@ function load(){
     overlays["Food"] = loadFood();
 
     L.control.layers(tiles, overlays).addTo(map);
+    search("mayflower theatre");
+}
+
+function search(serachString){
+    address = "https://maps.googleapis.com/maps/api/geocode/json?address=" + serachString + "&region=uk&key=AIzaSyCEbtTgwwturF3tp_qDMdMkGEOHcwqzy_8";
+    response = null;
+    $.ajax({
+        url: address,
+        async: false,
+        success: function (res) {
+            response = JSON.parse(res);
+            
+        },
+        dataType: "text",
+        complete: function () {
+            loc = response["results"][0]["geometry"]["location"]
+            lat = loc["lat"];
+            lng = loc["lng"];
+            map.panTo(new L.LatLng(lat, lng));
+        }
+    });
 }
