@@ -150,6 +150,60 @@ function loadFood(){
     return foodMarkers;
 }
 
+//properties
+function loadProperties(){
+    var propertyMarkers = L.layerGroup();
+    var dataProps;
+    $.ajax({
+        url: "data/propertylisting.csv",
+        async: false,
+        success: function (csvd) {
+            dataProps = $.csv.toArrays(csvd);
+            console.log("properties: ")
+            console.log(dataProps.length);
+        },
+        dataType: "text",
+        complete: function () {
+            //get lat long corods
+            for (i = 1; i < dataProps.length; i++) {
+                lat = dataProps[i][0];
+                lng = dataProps[i][1];
+                var markerP = L.marker(new L.LatLng(lat, lng));
+                markerP.bindPopup("£" + dataProps[i][3]);
+                propertyMarkers.addLayer(markerP);
+            }
+        }
+    });
+    return propertyMarkers;
+}
+
+//Railways
+function loadRails(){
+    var railMarkers = L.layerGroup();
+    var dataRails;
+    $.ajax({
+        url: "data/UKRailStations.csv",
+        async: false,
+        success: function (csvd) {
+            dataRails = $.csv.toArrays(csvd);
+            console.log("Railways: ")
+            console.log(dataRails.length);
+        },
+        dataType: "text",
+        complete: function () {
+            //get lat long corods
+            for (i = 1; i < dataRails.length; i++) {
+                lat = dataRails[i][4];
+                lng = dataRails[i][5];
+                var markerR = L.marker(new L.LatLng(lat, lng));
+                markerR.bindPopup(dataRails[i][2]);
+                railMarkers.addLayer(markerR);
+            }
+        }
+    });
+    return railMarkers;
+}
+
 function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
     return new Promise( (resolve, reject) =>
     {
@@ -207,6 +261,8 @@ function load(){
     overlays["Schools"] = loadSchools();
     overlays["Pharmacies"] = loadPharmacies();
     overlays["Food"] = loadFood();
+    overlays["Railways"] = loadRails();
+    overlays["Properties"] = loadProperties();
 
     L.control.layers(tiles, overlays).addTo(map);
     addSearchBar();
