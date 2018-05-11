@@ -12,14 +12,33 @@
 	<script type="text/javascript" src="leaflet/leaflet-heat.js"></script>
 	<script type="text/javascript" src="leaflet/leaflet.markercluster.js"></script>
 
-	<script type="text/javascript" src="map.js"></script>
 
-	<!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script> -->
+	<script type="text/javascript" src="map.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/leaflet.css" />
 	<link rel="stylesheet" href="css/MarkerCluster.css" />
 	<link rel="stylesheet" href="css/MarkerCluster.Default.css" />
 
+	<script type="text/javascript" src="leaflet/leaflet-custom-searchbox/src/leaflet.customsearchbox.js"></script>
+	<link rel="stylesheet" href="leaflet/leaflet-custom-searchbox/src/searchbox.css" />
+	<!-- <script type="text/javascript" src="leaflet/leaflet-search/dist/leaflet-search.src.js"></script>
+	<link rel="stylesheet" href="leaflet/leaflet-search/dist/leaflet-search.src.css" /> -->
+
+	<style>
+	/*custom rules*/
+	.leaflet-horizontalcenter {
+		position: absolute;
+		z-index: 1000;
+		pointer-events: none;
+		top: 100%; /* possible because the placeholder's parent is the map */
+		transform: translateX(-50%); /* using the CSS3 Transform technique */
+		padding-top: 10px;
+	}
+
+	.leaflet-horizontalcenter .leaflet-control {
+		margin-bottom: 10px;
+	}
+	</style>
 </head>
 
 <body>
@@ -28,6 +47,7 @@
 	</div>
 </body>
 <script>
+	//document.onload = function(){load()};
 	load();
 </script>
 

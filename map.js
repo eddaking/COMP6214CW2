@@ -1,10 +1,15 @@
 var map = null;
 function createMap(){
-    return L.map('mapid', {
+    var map = L.map('mapid', {
         center: [50.93414, -1.39550],
         zoom: 14,
-        maxZoom:16
+        maxZoom:16,
+        zoomControl: false
     });
+    zc = new L.control.zoom({position: 'bottomleft'});
+    zc.addTo(map);
+    return map;
+
 }
 
 function loadMapTiles(){
@@ -173,6 +178,20 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
     });
 }
 
+function addSearchBar(){
+    var searchboxControl=createSearchboxControl();
+    var control = new searchboxControl({
+    });
+    control._searchfunctionCallBack = function (searchkeywords)
+    {
+        if (!searchkeywords) {
+            searchkeywords = "The search call back is clicked !!"
+        }
+        alert(searchkeywords);
+    }
+    map.addControl(control);
+}
+
 //method to load all resources to the map (and the map)
 function load(){
     var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
@@ -189,8 +208,26 @@ function load(){
     overlays["Food"] = loadFood();
 
     L.control.layers(tiles, overlays).addTo(map);
-    search("mayflower theatre");
+    addSearchBar();
+    //search("mayflower theatre");
 }
+
+	// Create additional Control placeholders
+	function addControlPlaceholders(map) {
+		var corners = map._controlCorners,
+			l = 'leaflet-',
+			container = map._controlContainer;
+
+		function createCorner(vSide, hSide) {
+			var className = l + vSide + ' ' + l + hSide;
+
+			corners[vSide + hSide] = L.DomUtil.create('div', className, container);
+		}
+
+		createCorner('horizontalcenter', 'left');
+		createCorner('horizontalcenter', 'right');
+	}
+	addControlPlaceholders(map);
 
 function search(serachString){
     address = "https://maps.googleapis.com/maps/api/geocode/json?address=" + serachString + "&region=uk&key=AIzaSyCEbtTgwwturF3tp_qDMdMkGEOHcwqzy_8";
