@@ -181,13 +181,14 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
 function addSearchBar(){
     var searchboxControl=createSearchboxControl();
     var control = new searchboxControl({
+        sidebarMenuItems: {
+            Items: []}
     });
-    control._searchfunctionCallBack = function (searchkeywords)
+    control._searchfunctionCallBack = function (input)
     {
-        if (!searchkeywords) {
-            searchkeywords = "The search call back is clicked !!"
+        if (input) {
+            search(input)
         }
-        alert(searchkeywords);
     }
     map.addControl(control);
 }
@@ -209,25 +210,16 @@ function load(){
 
     L.control.layers(tiles, overlays).addTo(map);
     addSearchBar();
-    //search("mayflower theatre");
+    //bind the searchbox text input of enter to the search function
+    $('#searchboxinput').keyup(function (e) {
+        if (e.keyCode === 13) {
+            var input = $('#searchboxinput').val();
+            if(input){
+                search(input);
+            }
+        }
+    });
 }
-
-	// Create additional Control placeholders
-	function addControlPlaceholders(map) {
-		var corners = map._controlCorners,
-			l = 'leaflet-',
-			container = map._controlContainer;
-
-		function createCorner(vSide, hSide) {
-			var className = l + vSide + ' ' + l + hSide;
-
-			corners[vSide + hSide] = L.DomUtil.create('div', className, container);
-		}
-
-		createCorner('horizontalcenter', 'left');
-		createCorner('horizontalcenter', 'right');
-	}
-	addControlPlaceholders(map);
 
 function search(serachString){
     address = "https://maps.googleapis.com/maps/api/geocode/json?address=" + serachString + "&region=uk&key=AIzaSyCEbtTgwwturF3tp_qDMdMkGEOHcwqzy_8";

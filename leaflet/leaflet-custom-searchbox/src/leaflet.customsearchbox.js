@@ -33,20 +33,8 @@ function createSearchboxControl(){
         },
         initialize: function(options) {
             L.Util.setOptions(this, options);
-            if(options.sidebarTitleText)
-            {
-                this._sideBarHeaderTitle = options.sidebarTitleText;
-            }
-
-            if (options.sidebarMenuItems)
-            {
-                this._sideBarMenuItems = options.sidebarMenuItems;
-
-            }
         },
         onAdd: function (map) {
-
-
             var container = L.DomUtil.create('div');
             container.id = "controlcontainer";
             var headerTitle = this._sideBarHeaderTitle;
@@ -60,19 +48,10 @@ function createSearchboxControl(){
                     var searchkeywords = $("#searchboxinput").val();
                     searchCallBack(searchkeywords);
                 });
-
-                $("#searchbox-menubutton").click(function () {
-                    $(".panel").toggle("slide", { direction: "left" }, 500);
-                });
-
-                $(".panel-close-button").click(function () {
-                    $(".panel").toggle("slide", { direction: "left" }, 500);
-                });
-
-                $(".panel-header-title").text(headerTitle);
-
-                var htmlContent = generateHtmlContent(menuItems);
-                $(".panel-content").html(htmlContent);       
+                if (menuItems){
+                    var htmlContent = generateHtmlContent(menuItems);
+                    $(".panel-content").html(htmlContent);       
+                }
             }, 1);
 
             L.DomEvent.disableClickPropagation(container);
