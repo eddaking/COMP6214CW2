@@ -90,6 +90,7 @@ function loadSchools(){
     });
     return schoolMarkers;
 }
+
 // function loadPharmacies(){
 //     var pharmacyMarkers = L.layerGroup();
 //     var dataPharm;
@@ -124,6 +125,7 @@ function loadSchools(){
 //     });
 //     return pharmacyMarkers;
 // }
+
 //pharmacies
 function loadPharmacies(){
     var pharmacyMarkers = L.layerGroup();
