@@ -1,5 +1,5 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 var path = require('path');
 var public = path.join(__dirname, 'public');
 var MongoClient = require('mongodb').MongoClient
@@ -24,16 +24,25 @@ function getConnection(dbname){
         });
 }
 
-var dbo = getConnection('houseguru');
+var dbo = getConnection('mydb');
 var getPoints = function(param, cb) {
 
-        dbo.collection('places').find({type: param}).limit(10).toArray(cb);
+        console.log(param.lat, param.long, param.dist);
+        var query =
+        {
+          geocode:
+          {
+            $near: [Number(param.lat) ,Number(param.long)],
+            $maxDistance : Number(param.dist)
+          }
+        };
+        dbo.collection('things').find(query).toArray(cb);
     }
 
 // app.use('/', express.static(__dirname + '/index2.html'));
 
 app.get('/getPoints', function(req,res){
-  getPoints(req.query.businessType, function(err,data){
+  getPoints(req.query, function(err,data){
     if(err) throw err;
     return res.json(data);
   })
@@ -48,5 +57,5 @@ app.get('/', function(req, res) {
 
 app.use('/', express.static(public));
 
-app.listen(8080, "167.99.88.178")
-console.log("server is listening om 167.99.88.178:8080")
+app.listen(3000, "localhost")
+console.log("server is listening om localhost")
