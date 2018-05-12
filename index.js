@@ -24,16 +24,16 @@ function getConnection(dbname){
         });
 }
 
-var dbo = getConnection('mydb');
+var dbo = getConnection('houseguru');
 var getPoints = function(param, cb) {
 
-        dbo.collection('things').find({BusinessType: param}).toArray(cb);
+        dbo.collection('places').find({type: param}).limit(10).toArray(cb);
     }
 
 // app.use('/', express.static(__dirname + '/index2.html'));
 
 app.get('/getPoints', function(req,res){
-  getPoints(req.query.BusinessType, function(err,data){
+  getPoints(req.query.businessType, function(err,data){
     if(err) throw err;
     return res.json(data);
   })
@@ -48,4 +48,5 @@ app.get('/', function(req, res) {
 
 app.use('/', express.static(public));
 
-app.listen(8080, () => console.log('Example app listening on port 8080!'))
+app.listen(8080, "167.99.88.178")
+console.log("server is listening om 167.99.88.178:8080")
