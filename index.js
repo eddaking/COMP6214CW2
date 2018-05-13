@@ -36,7 +36,7 @@ var getPoints = function(param, cb) {
             $maxDistance : Number(param.dist)
           }
         };
-        dbo.collection('places').find(query).toArray(cb);
+        dbo.collection('places').find(query).batchSize(10000).toArray(cb);
     }
 
 // app.use('/', express.static(__dirname + '/index2.html'));
