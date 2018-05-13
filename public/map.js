@@ -340,10 +340,11 @@ function load(){
             console.log(jsonArray);
             jsonArray.forEach(function(elem) {
                 dataType = elem.type;
+                row = [elem["geocode"][1], elem["geocode"][0], elem["name"]];
                 if (data[dataType] == null){
-                    data[dataType] = [ [elem["geocode"][1], elem["geocode"][0], elem["name"]] ];
+                    data[dataType] = [ row ];
                 }else{
-                    data[dataType].push(elem);
+                    data[dataType].push(row);
                 }
             }, this);
             
