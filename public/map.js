@@ -38,14 +38,11 @@ function loadCrimes(){
         success: function (csvd) {
             temp = $.csv.toArrays(csvd);
             temp.forEach(function(elem){
-                lat = elem[6];
-                lng = elem[7];
-                //cut out data from not in southampton, due to volume of data casuing perfomance issues
-                if (lng > -2 & lng < -1 & lat < 51.5){
-                    data.push(lat, lng, elem[0]);
-                }
+                lat = elem[5];
+                lng = elem[4];
+                data.push([lat, lng, elem[8]]);
             });
-            console.log("Crime:");
+            console.log("Crimes:");
             console.log(data.length);
        },
         dataType: "text"
@@ -99,7 +96,7 @@ function loadSchools(){
                 lng = elem[7];
                 //cut out data from not in southampton, due to volume of data casuing perfomance issues
                 if (lng > -2 & lng < -1 & lat < 51.5){
-                    dataSchool.push(lat, lng, elem[0]);
+                    dataSchool.push([lat, lng, elem[0]]);
                 }
             });
             console.log("Schools: ")
@@ -141,7 +138,7 @@ function loadPharmacies(){
                 lng = elem[2];
                 //cut out data from not in southampton, due to volume of data casuing perfomance issues
                 if (lng > -2 & lng < -1 & lat < 51.5){
-                    dataPharm.push(elem[1], elem[2], elem[0]);
+                    dataPharm.push([elem[1], elem[2], elem[0]]);
                 }
             });
             console.log("Pharms: ")
@@ -181,7 +178,7 @@ function loadFood(){
             temp.forEach(function(elem){
                 lat = elem[21];
                 lng = elem[20];
-                dataFood.push(lat, lng, elem[2]);
+                dataFood.push([lat, lng, elem[2]]);
             });
             console.log("Foods: ")
             console.log(dataFood.length);
@@ -220,7 +217,7 @@ function loadProperties(){
             temp.forEach(function(elem){
                 lat = elem[0];
                 lng = elem[1];
-                dataProps.push(lat, lng, elem[3]);
+                dataProps.push([lat, lng, elem[3]]);
             });
             console.log("properties: ")
             console.log(dataProps.length);
@@ -259,7 +256,7 @@ function loadRails(){
             temp.forEach(function(elem){
                 lat = elem[4];
                 lng = elem[5];
-                dataRails.push(lat, lng, elem[2]);
+                dataRails.push([lat, lng, elem[2]]);
             });
             console.log("Railways: ")
             console.log(dataRails.length);
