@@ -355,8 +355,7 @@ function search(serachString){
         url: address,
         async: false,
         success: function (res) {
-            response = JSON.parse(res);
-            
+            response = JSON.parse(res);            
         },
         dataType: "text",
         complete: function () {
