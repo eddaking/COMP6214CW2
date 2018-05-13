@@ -39,8 +39,8 @@ function loadCrimes(){
         success: function (csvd) {
             data = $.csv.toArrays(csvd);
             console.log("Crime:");
-            console.log(data.length);
-        },
+            onsole.log(data.length);
+       },
         dataType: "text"
     });
 
@@ -285,24 +285,9 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
     });
 }
 
-// function addSearchBar(){
-//     var searchboxControl=createSearchboxControl();
-//     var control = new searchboxControl({
-//         sidebarMenuItems: {
-//             Items: []}
-//     });
-//     control._searchfunctionCallBack = function (input)
-//     {
-//         if (input) {
-//             search(input)
-//         }
-//     }
-//     map.addControl(control);
-// }
-
 //method to load all resources to the map (and the map)
 function load(){
-    var useOldMethod = true;
+    var useOldMethod = false;
     var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
     var overlays = {};
     var tiles = null;
@@ -318,26 +303,28 @@ function load(){
         overlays["Food Retailers"] = loadFood();
         overlays["Railways"] = loadRails();
         overlays["Properties"] = loadProperties();
-        //addSearchBar();
     }else{
         var centre = map.getCenter();
-        var data;
+        var data = {};
         $.ajax({
-        url: "http://167.99.88.178/getPoints?lat=" + centre[0] + "&long="+ centre[1] +"&dist=0.01",
+        url: "getPoints?lat=" + centre.lng + "&long="+ centre.lat +"&dist=0.01",
         async: false,
         success: function (jsonArray) {
-            data = $.csv.toArrays(jsonArray);
-            data.forEach(function(elem) {
+            console.log(jsonArray);
+            jsonArray.forEach(function(elem) {
                 dataType = elem.type;
-                if (data.dataType == null){
-                    data.dataType = [elem];
+                console.log(dataType);
+                console.log(elem);
+                console.log(data);
+                if (data[dataType] == null){
+                    data[dataType] = [elem];
                 }else{
-                    data.dataType.append(elem);
+                    data[dataType].push(elem);
                 }
             }, this);
             console.log(data);
         },
-        dataType: "text",
+        dataType: "json",
         complete: function () {
            console.log("TODO: finsih adding json to map")
         }
@@ -345,12 +332,18 @@ function load(){
     }
     L.control.layers(tiles, overlays).addTo(map);
     //bind the searchbox text input of enter to the search function
-    $('#searchboxinput').keyup(function (e) {
+    $('#LocationSearch').keyup(function (e) {
         if (e.keyCode === 13) {
-            var input = $('#searchboxinput').val();
+            var input = $('#LocationSearch').val();
             if(input){
                 search(input);
             }
+        }
+    });
+    $('#SearchButton').click(function(){
+        var input = $('#LocationSearch').val();
+        if(input){
+            search(input);
         }
     });
 }
