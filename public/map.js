@@ -1,9 +1,15 @@
+var map = null;
 function createMap(){
-    return L.map('mapid', {
+    var map = L.map('mapid', {
         center: [50.93414, -1.39550],
         zoom: 14,
-        maxZoom:16
+        maxZoom:16,
+        zoomControl: false
     });
+    zc = new L.control.zoom({position: 'bottomleft'});
+    zc.addTo(map);
+    return map;
+
 }
 
 function loadMapTiles(){
@@ -20,7 +26,6 @@ function loadHousePrice(){
     });
 }
 //load the crime data into the heat map and the cluster
-
 function loadCrimes(){
     var crimeMarkers = L.markerClusterGroup();
     crimeMarkers.bringToFront();
@@ -86,6 +91,41 @@ function loadSchools(){
     return schoolMarkers;
 }
 
+// function loadPharmacies(){
+//     var pharmacyMarkers = L.layerGroup();
+//     var dataPharm;
+//     $.ajax({
+//         url: "http://localhost:8080/getPoints/?BusinessType=pharmacy",
+//         async: false,
+//         success: function (data) {
+//             dataPharm = data;
+//             console.log(dataPharm);
+//             // console.log("Pharms: ")
+//             // console.log(dataPharm.length);
+//         },
+//         dataType: "text",
+//         complete: function () {
+//           // for( var key in dataPharm){
+//           //   console.log(dataPharm.name);
+//           // }
+//           console.log(dataPharm.length)
+//             //get lat long corods
+//             // for (i = 1; i < dataPharm.length; i++) {
+//             //   console.log(dataPharm[i].geocode);
+//             //     // lat = dataPharm[i][1];
+//             //     // lng = dataPharm[i][2];
+//             //     //cut out data from not in southampton, due to volume of data casuing perfomance issues
+//             //     // if (lng > -2 & lng < -1 & lat < 51.5){
+//             //     //     var markerP = L.marker(new L.LatLng(lat, lng));
+//             //     //     markerP.bindPopup(dataPharm[i][0]);
+//             //     //     pharmacyMarkers.addLayer(markerP);
+//             //     // }
+//             // }
+//         }
+//     });
+//     return pharmacyMarkers;
+// }
+
 //pharmacies
 function loadPharmacies(){
     var pharmacyMarkers = L.layerGroup();
@@ -138,13 +178,65 @@ function loadFood(){
                     var markerF = L.marker(new L.LatLng(lat, lng));
                     markerF.bindPopup(dataFood[i][2]);
                     foodMarkers.addLayer(markerF);
-                }else{
-                    console.log(dataFood[i][2]);
                 }
             }
         }
     });
     return foodMarkers;
+}
+
+//properties
+function loadProperties(){
+    var propertyMarkers = L.layerGroup();
+    var dataProps;
+    $.ajax({
+        url: "data/propertylisting.csv",
+        async: false,
+        success: function (csvd) {
+            dataProps = $.csv.toArrays(csvd);
+            console.log("properties: ")
+            console.log(dataProps.length);
+        },
+        dataType: "text",
+        complete: function () {
+            //get lat long corods
+            for (i = 1; i < dataProps.length; i++) {
+                lat = dataProps[i][0];
+                lng = dataProps[i][1];
+                var markerP = L.marker(new L.LatLng(lat, lng));
+                markerP.bindPopup("£" + dataProps[i][3]);
+                propertyMarkers.addLayer(markerP);
+            }
+        }
+    });
+    return propertyMarkers;
+}
+
+//Railways
+function loadRails(){
+    var railMarkers = L.layerGroup();
+    var dataRails;
+    $.ajax({
+        url: "data/UKRailStations.csv",
+        async: false,
+        success: function (csvd) {
+            dataRails = $.csv.toArrays(csvd);
+            console.log("Railways: ")
+            console.log(dataRails.length);
+        },
+        dataType: "text",
+        complete: function () {
+            //get lat long corods
+            for (i = 1; i < dataRails.length; i++) {
+                lat = dataRails[i][4];
+                lng = dataRails[i][5];
+                var markerR = L.marker(new L.LatLng(lat, lng));
+                markerR.bindPopup(dataRails[i][2]);
+                railMarkers.addLayer(markerR);
+            }
+        }
+    });
+    return railMarkers;
 }
 
 function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
@@ -175,12 +267,27 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
     });
 }
 
+function addSearchBar(){
+    var searchboxControl=createSearchboxControl();
+    var control = new searchboxControl({
+        sidebarMenuItems: {
+            Items: []}
+    });
+    control._searchfunctionCallBack = function (input)
+    {
+        if (input) {
+            search(input)
+        }
+    }
+    map.addControl(control);
+}
+
 //method to load all resources to the map (and the map)
 function load(){
-    var map, baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
+    var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
     var overlays = {};
     var tiles = null;
-    var map = createMap();
+    map = createMap();
     loadMapTiles().addTo(map);
     var temp = loadCrimes();
     overlays["Crime Heatmap"] = temp[0];
@@ -189,6 +296,38 @@ function load(){
     overlays["Schools"] = loadSchools();
     overlays["Pharmacies"] = loadPharmacies();
     overlays["Food"] = loadFood();
+    overlays["Railways"] = loadRails();
+    overlays["Properties"] = loadProperties();
 
     L.control.layers(tiles, overlays).addTo(map);
+    addSearchBar();
+    //bind the searchbox text input of enter to the search function
+    $('#searchboxinput').keyup(function (e) {
+        if (e.keyCode === 13) {
+            var input = $('#searchboxinput').val();
+            if(input){
+                search(input);
+            }
+        }
+    });
+}
+
+function search(serachString){
+    address = "https://maps.googleapis.com/maps/api/geocode/json?address=" + serachString + "&region=uk&key=AIzaSyCEbtTgwwturF3tp_qDMdMkGEOHcwqzy_8";
+    response = null;
+    $.ajax({
+        url: address,
+        async: false,
+        success: function (res) {
+            response = JSON.parse(res);
+
+        },
+        dataType: "text",
+        complete: function () {
+            loc = response["results"][0]["geometry"]["location"]
+            lat = loc["lat"];
+            lng = loc["lng"];
+            map.panTo(new L.LatLng(lat, lng));
+        }
+    });
 }
