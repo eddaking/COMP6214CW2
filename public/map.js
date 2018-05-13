@@ -334,22 +334,30 @@ function load(){
         var centre = map.getCenter();
         var data = {};
         $.ajax({
-        url: "getPoints?lat=" + centre.lng + "&long="+ centre.lat +"&dist=0.01",
+        url: "getPoints?lat=" + centre.lng + "&long="+ centre.lat +"&dist=1",
         async: false,
         success: function (jsonArray) {
             console.log(jsonArray);
             jsonArray.forEach(function(elem) {
                 dataType = elem.type;
-                console.log(dataType);
-                console.log(elem);
-                console.log(data);
                 if (data[dataType] == null){
-                    data[dataType] = [elem];
+                    data[dataType] = [ [elem["geocode"][1], elem["geocode"][0], elem["name"]] ];
                 }else{
                     data[dataType].push(elem);
                 }
             }, this);
+            
+            overlays["Crime Heatmap"] = createCrimeHeatmapLayer(data["crime"]);
+            overlays["Crime Clustermap"] = createCrimeClusterMapLayer(data["crime"]);
+            overlays["House Price"] = loadHousePrice();
+            overlays["Schools"] = createSchoolLayer(data["school"]);
+            overlays["Pharmacies"] = createPharmacyLayer(data["pharmacy"]);
+            overlays["Food Retailers"] = createFoodLayer(data["food"]);
+            overlays["Railways"] = createRailLayer(data["railway"]);
+            overlays["Properties"] = createPropertyLayer(data["property"]);
+
             console.log(data);
+
         },
         dataType: "json",
         complete: function () {
