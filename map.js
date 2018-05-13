@@ -3,7 +3,7 @@ function createMap(){
     var map = L.map('mapid', {
         center: [50.93414, -1.39550],
         zoom: 14,
-        maxZoom:16,
+        maxZoom:18,
         zoomControl: false
     });
     zc = new L.control.zoom({position: 'bottomleft'});
