@@ -272,6 +272,7 @@ function load(){
         $.ajax({
         url: "http://167.99.88.178/getPoints?lat=" + centre[0] + "&long="+ centre[1] +"&dist=0.01",
         async: false,
+        crossDomain: true,
         success: function (jsonArray) {
             data = $.csv.toArrays(jsonArray);
             data.forEach(function(elem) {
