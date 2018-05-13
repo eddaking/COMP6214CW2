@@ -186,11 +186,11 @@ function loadProperties(){
         },
         dataType: "text"
     });
-    return createFoodLayer(dataProps);
+    return createPropertyLayer(dataProps);
 }
 
 //create property layer for map
-function createFoodLayer(data){
+function createPropertyLayer(data){
     var propertyMarkers = L.layerGroup();
     //get lat long corods
     for (i = 1; i < data.length; i++) {
