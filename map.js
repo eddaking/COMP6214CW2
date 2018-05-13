@@ -227,7 +227,7 @@ function createRailLayer(data){
         lat = data[i][4];
         lng = data[i][5];
         var markerR = L.marker(new L.LatLng(lat, lng));
-        markerR.bindPopup("£" + data[i][2]);
+        markerR.bindPopup(data[i][2]);
         railMarkers.addLayer(markerR);
     }
     return railMarkers;

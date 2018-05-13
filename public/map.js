@@ -24,11 +24,9 @@ function loadHousePrice(){
         opacity: 0.7,
         attribution: "Heatmap from <a href='http://www.zoopla.co.uk/heatmaps/'>Zoopla</a>"
     });
-}
+}   
 //load the crime data into the heat map and the cluster
 function loadCrimes(){
-    var crimeMarkers = L.markerClusterGroup();
-    crimeMarkers.bringToFront();
 
     var data;
     var heat;
@@ -43,27 +41,46 @@ function loadCrimes(){
             console.log("Crime:");
             console.log(data.length);
         },
-        dataType: "text",
-        complete: function () {
-            //get lat long corods
-            for (i = 1; i < data.length; i++) {
-                latlonArr.push([data[i][5], data[i][4]]);
-                var marker = L.marker(new L.LatLng(data[i][5], data[i][4]), { title: data[i][9] });
-                marker.bindPopup(data[i][9]);
-                crimeMarkers.addLayer(marker);
-            }
-            //add coords to heatmap
-            heat = L.heatLayer(latlonArr);
-            layers = [heat, crimeMarkers];
-        }
+        dataType: "text"
     });
 
+    layers = [createCrimeHeatmapLayer(data),createCrimeClusterMapLayer(data)];
     return(layers);
+}
+
+//create crime clusterMap layer for map
+function createCrimeClusterMapLayer(data){
+    var crimeMarkers = L.markerClusterGroup();
+    var crimeIcon = L.icon({
+        iconUrl: 'img/mapIcons/crime.png',
+        iconSize: [38, 95]
+    });
+    crimeMarkers.bringToFront();
+    //get lat long corods
+    for (i = 1; i < data.length; i++) {
+        var marker = L.marker(new L.LatLng(data[i][5], data[i][4]), { icon: crimeIcon, title: data[i][9] });
+        marker.bindPopup(data[i][9]);
+        crimeMarkers.addLayer(marker);
+    }
+
+    return crimeMarkers
+}
+
+//create crime heatmap layer for map
+function createCrimeHeatmapLayer(data){
+    var latlonArr = [];
+    for (i = 1; i < data.length; i++) {
+        //get lat long corods
+        latlonArr.push([data[i][5], data[i][4]]);
+    }
+    //add coords to heatmap
+    heat = L.heatLayer(latlonArr);
+
+    return heat;
 }
 
 //schools
 function loadSchools(){
-    var schoolMarkers = L.layerGroup();
     var dataSchool;
     $.ajax({
         url: "data/UKSchools.csv",
@@ -73,62 +90,30 @@ function loadSchools(){
             console.log("Schools: ")
             console.log(dataSchool.length);
         },
-        dataType: "text",
-        complete: function () {
-            //get lat long corods
-            for (i = 1; i < dataSchool.length; i++) {
-                lat = dataSchool[i][6];
-                lng = dataSchool[i][7];
-                //cut out data from not in southampton, due to sheer volume of data casuing perfomance issues
-                if (lng > -2 & lng < -1 & lat < 51.5){
-                    var markerS = L.marker(new L.LatLng(lat, lng));
-                    markerS.bindPopup(dataSchool[i][0]);
-                    schoolMarkers.addLayer(markerS);
-                }
-            }
-        }
+        dataType: "text"
     });
+    return createSchoolLayer(dataSchool);
+}
+
+//create schools layer for map
+function createSchoolLayer(data){
+    var schoolMarkers = L.layerGroup();
+    for (i = 1; i < data.length; i++) {
+        //get lat long corods
+        lat = data[i][6];
+        lng = data[i][7];
+        //cut out data from not in southampton, due to sheer volume of data casuing perfomance issues
+        if (lng > -2 & lng < -1 & lat < 51.5){
+            var markerS = L.marker(new L.LatLng(lat, lng));
+            markerS.bindPopup(data[i][0]);
+            schoolMarkers.addLayer(markerS);
+        }
+    }
     return schoolMarkers;
 }
 
-// function loadPharmacies(){
-//     var pharmacyMarkers = L.layerGroup();
-//     var dataPharm;
-//     $.ajax({
-//         url: "http://localhost:8080/getPoints/?BusinessType=pharmacy",
-//         async: false,
-//         success: function (data) {
-//             dataPharm = data;
-//             console.log(dataPharm);
-//             // console.log("Pharms: ")
-//             // console.log(dataPharm.length);
-//         },
-//         dataType: "text",
-//         complete: function () {
-//           // for( var key in dataPharm){
-//           //   console.log(dataPharm.name);
-//           // }
-//           console.log(dataPharm.length)
-//             //get lat long corods
-//             // for (i = 1; i < dataPharm.length; i++) {
-//             //   console.log(dataPharm[i].geocode);
-//             //     // lat = dataPharm[i][1];
-//             //     // lng = dataPharm[i][2];
-//             //     //cut out data from not in southampton, due to volume of data casuing perfomance issues
-//             //     // if (lng > -2 & lng < -1 & lat < 51.5){
-//             //     //     var markerP = L.marker(new L.LatLng(lat, lng));
-//             //     //     markerP.bindPopup(dataPharm[i][0]);
-//             //     //     pharmacyMarkers.addLayer(markerP);
-//             //     // }
-//             // }
-//         }
-//     });
-//     return pharmacyMarkers;
-// }
-
 //pharmacies
 function loadPharmacies(){
-    var pharmacyMarkers = L.layerGroup();
     var dataPharm;
     $.ajax({
         url: "data/Pharmacy.csv",
@@ -138,27 +123,30 @@ function loadPharmacies(){
             console.log("Pharms: ")
             console.log(dataPharm.length);
         },
-        dataType: "text",
-        complete: function () {
-            //get lat long corods
-            for (i = 1; i < dataPharm.length; i++) {
-                lat = dataPharm[i][1];
-                lng = dataPharm[i][2];
-                //cut out data from not in southampton, due to volume of data casuing perfomance issues
-                if (lng > -2 & lng < -1 & lat < 51.5){
-                    var markerP = L.marker(new L.LatLng(lat, lng));
-                    markerP.bindPopup(dataPharm[i][0]);
-                    pharmacyMarkers.addLayer(markerP);
-                }
-            }
-        }
+        dataType: "text"
     });
+    return createPharmacyLayer(dataPharm);
+}
+
+//create pharmacies layer for map
+function createPharmacyLayer(data){
+    var pharmacyMarkers = L.layerGroup();
+    //get lat long corods
+    for (i = 1; i < data.length; i++) {
+        lat = data[i][1];
+        lng = data[i][2];
+        //cut out data from not in southampton, due to volume of data casuing perfomance issues
+        if (lng > -2 & lng < -1 & lat < 51.5){
+            var markerP = L.marker(new L.LatLng(lat, lng));
+            markerP.bindPopup(data[i][0]);
+            pharmacyMarkers.addLayer(markerP);
+        }
+    }
     return pharmacyMarkers;
 }
 
 //food
 function loadFood(){
-    var foodMarkers = L.layerGroup();
     var dataFood;
     $.ajax({
         url: "data/foodRatings.csv",
@@ -169,25 +157,28 @@ function loadFood(){
             console.log(dataFood.length);
         },
         dataType: "text",
-        complete: function () {
-            //get lat long corods
-            for (i = 1; i < dataFood.length; i++) {
-                if (dataFood[i][3] != "Hospitals/Childcare/Caring Premises" && dataFood[i][3] != "School/college/university"){
-                    lat = dataFood[i][21];
-                    lng = dataFood[i][20];
-                    var markerF = L.marker(new L.LatLng(lat, lng));
-                    markerF.bindPopup(dataFood[i][2]);
-                    foodMarkers.addLayer(markerF);
-                }
-            }
-        }
     });
+    return createFoodLayer(dataFood);
+}
+
+//create food retailer layer for map
+function createFoodLayer(data){
+    var foodMarkers = L.layerGroup();
+    //get lat long corods
+    for (i = 1; i < data.length; i++) {
+        if (data[i][3] != "Hospitals/Childcare/Caring Premises" && data[i][3] != "School/college/university"){
+            lat = data[i][21];
+            lng = data[i][20];
+            var markerF = L.marker(new L.LatLng(lat, lng));
+            markerF.bindPopup(data[i][2]);
+            foodMarkers.addLayer(markerF);
+        }
+    }
     return foodMarkers;
 }
 
 //properties
 function loadProperties(){
-    var propertyMarkers = L.layerGroup();
     var dataProps;
     $.ajax({
         url: "data/propertylisting.csv",
@@ -197,24 +188,27 @@ function loadProperties(){
             console.log("properties: ")
             console.log(dataProps.length);
         },
-        dataType: "text",
-        complete: function () {
-            //get lat long corods
-            for (i = 1; i < dataProps.length; i++) {
-                lat = dataProps[i][0];
-                lng = dataProps[i][1];
-                var markerP = L.marker(new L.LatLng(lat, lng));
-                markerP.bindPopup("£" + dataProps[i][3]);
-                propertyMarkers.addLayer(markerP);
-            }
-        }
+        dataType: "text"
     });
+    return createPropertyLayer(dataProps);
+}
+
+//create property layer for map
+function createPropertyLayer(data){
+    var propertyMarkers = L.layerGroup();
+    //get lat long corods
+    for (i = 1; i < data.length; i++) {
+        lat = data[i][0];
+        lng = data[i][1];
+        var markerP = L.marker(new L.LatLng(lat, lng));
+        markerP.bindPopup("£" + data[i][3]);
+        propertyMarkers.addLayer(markerP);
+    }
     return propertyMarkers;
 }
 
 //Railways
 function loadRails(){
-    var railMarkers = L.layerGroup();
     var dataRails;
     $.ajax({
         url: "data/UKRailStations.csv",
@@ -224,18 +218,22 @@ function loadRails(){
             console.log("Railways: ")
             console.log(dataRails.length);
         },
-        dataType: "text",
-        complete: function () {
-            //get lat long corods
-            for (i = 1; i < dataRails.length; i++) {
-                lat = dataRails[i][4];
-                lng = dataRails[i][5];
-                var markerR = L.marker(new L.LatLng(lat, lng));
-                markerR.bindPopup(dataRails[i][2]);
-                railMarkers.addLayer(markerR);
-            }
-        }
+        dataType: "text"
     });
+    return createRailLayer(dataRails);
+}
+
+//create railway station layer for map
+function createRailLayer(data){
+    var railMarkers = L.layerGroup();
+    //get lat long corods
+    for (i = 1; i < data.length; i++) {
+        lat = data[i][4];
+        lng = data[i][5];
+        var markerR = L.marker(new L.LatLng(lat, lng));
+        markerR.bindPopup(data[i][2]);
+        railMarkers.addLayer(markerR);
+    }
     return railMarkers;
 }
 
@@ -267,40 +265,65 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
     });
 }
 
-function addSearchBar(){
-    var searchboxControl=createSearchboxControl();
-    var control = new searchboxControl({
-        sidebarMenuItems: {
-            Items: []}
-    });
-    control._searchfunctionCallBack = function (input)
-    {
-        if (input) {
-            search(input)
-        }
-    }
-    map.addControl(control);
-}
+// function addSearchBar(){
+//     var searchboxControl=createSearchboxControl();
+//     var control = new searchboxControl({
+//         sidebarMenuItems: {
+//             Items: []}
+//     });
+//     control._searchfunctionCallBack = function (input)
+//     {
+//         if (input) {
+//             search(input)
+//         }
+//     }
+//     map.addControl(control);
+// }
 
 //method to load all resources to the map (and the map)
 function load(){
+    var useOldMethod = true;
     var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
     var overlays = {};
     var tiles = null;
     map = createMap();
     loadMapTiles().addTo(map);
-    var temp = loadCrimes();
-    overlays["Crime Heatmap"] = temp[0];
-    overlays["Crime Clustermap"] = temp[1];
-    overlays["House Price"] = loadHousePrice();
-    overlays["Schools"] = loadSchools();
-    overlays["Pharmacies"] = loadPharmacies();
-    overlays["Food"] = loadFood();
-    overlays["Railways"] = loadRails();
-    overlays["Properties"] = loadProperties();
-
+    if (useOldMethod){
+        var temp = loadCrimes();
+        overlays["Crime Heatmap"] = temp[0];
+        overlays["Crime Clustermap"] = temp[1];
+        overlays["House Price"] = loadHousePrice();
+        overlays["Schools"] = loadSchools();
+        overlays["Pharmacies"] = loadPharmacies();
+        overlays["Food Retailers"] = loadFood();
+        overlays["Railways"] = loadRails();
+        overlays["Properties"] = loadProperties();
+        //addSearchBar();
+    }else{
+        var centre = map.getCenter();
+        var data;
+        $.ajax({
+        url: "http://167.99.88.178/getPoints?lat=" + centre[0] + "&long="+ centre[1] +"&dist=0.01",
+        async: false,
+        success: function (jsonArray) {
+            data = $.csv.toArrays(jsonArray);
+            data.forEach(function(elem) {
+                dataType = elem.type;
+                if (data.dataType == null){
+                    data.dataType = [elem];
+                }else{
+                    data.dataType.append(elem);
+                }
+            }, this);
+            console.log(data);
+        },
+        dataType: "text",
+        complete: function () {
+           console.log("TODO: finsih adding json to map")
+        }
+    });
+    }
     L.control.layers(tiles, overlays).addTo(map);
-    addSearchBar();
     //bind the searchbox text input of enter to the search function
     $('#searchboxinput').keyup(function (e) {
         if (e.keyCode === 13) {
@@ -320,7 +343,7 @@ function search(serachString){
         async: false,
         success: function (res) {
             response = JSON.parse(res);
-
+            
         },
         dataType: "text",
         complete: function () {
