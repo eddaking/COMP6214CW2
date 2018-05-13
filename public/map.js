@@ -347,16 +347,28 @@ function load(){
                 }
             }, this);
             
-            overlays["Crime Heatmap"] = createCrimeHeatmapLayer(data["crime"]);
-            overlays["Crime Clustermap"] = createCrimeClusterMapLayer(data["crime"]);
-            overlays["House Price"] = loadHousePrice();
-            overlays["Schools"] = createSchoolLayer(data["school"]);
-            overlays["Pharmacies"] = createPharmacyLayer(data["pharmacy"]);
-            overlays["Food Retailers"] = createFoodLayer(data["food"]);
-            overlays["Railways"] = createRailLayer(data["railway"]);
-            overlays["Properties"] = createPropertyLayer(data["property"]);
-
             console.log(data);
+            if (data["crime"]){
+                overlays["Crime Heatmap"] = createCrimeHeatmapLayer(data["crime"]);
+                overlays["Crime Clustermap"] = createCrimeClusterMapLayer(data["crime"]);
+            }
+            overlays["House Price"] = loadHousePrice();
+            if (data[school]){
+                overlays["Schools"] = createSchoolLayer(data["school"]);
+            }
+            if (data["pharmacy"]){
+                overlays["Pharmacies"] = createPharmacyLayer(data["pharmacy"]);
+            }
+            if (data["food"]){
+                overlays["Food Retailers"] = createFoodLayer(data["food"]);
+            }
+            if(data["railway"]){
+                overlays["Railways"] = createRailLayer(data["railway"]);
+            }
+            if (data["property"]){
+                overlays["Properties"] = createPropertyLayer(data["property"]);
+            }
+
 
         },
         dataType: "json",
