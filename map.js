@@ -249,23 +249,49 @@ function addSearchBar(){
 
 //method to load all resources to the map (and the map)
 function load(){
+    var useOldMethod = false;
     var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
     var overlays = {};
     var tiles = null;
     map = createMap();
     loadMapTiles().addTo(map);
     var temp = loadCrimes();
-    overlays["Crime Heatmap"] = temp[0];
-    overlays["Crime Clustermap"] = temp[1];
-    overlays["House Price"] = loadHousePrice();
-    overlays["Schools"] = loadSchools();
-    overlays["Pharmacies"] = loadPharmacies();
-    overlays["Food"] = loadFood();
-    overlays["Railways"] = loadRails();
-    overlays["Properties"] = loadProperties();
-
+    if (useOldMethod){
+        overlays["Crime Heatmap"] = temp[0];
+        overlays["Crime Clustermap"] = temp[1];
+        overlays["House Price"] = loadHousePrice();
+        overlays["Schools"] = loadSchools();
+        overlays["Pharmacies"] = loadPharmacies();
+        overlays["Food Retailers"] = loadFood();
+        overlays["Railways"] = loadRails();
+        overlays["Properties"] = loadProperties();
+        addSearchBar();
+    }else{
+        var centre = map.getCenter();
+        var data;
+        $.ajax({
+        url: "http://167.99.88.178/getPoints?lat=" + centre[0] + "&long="+ centre[1] +"&dist=0.01",
+        async: false,
+        crossDomain: true,
+        success: function (jsonArray) {
+            data = $.csv.toArrays(jsonArray);
+            data.forEach(function(elem) {
+                dataType = elem.type;
+                if (data.dataType == null){
+                    data.dataType = [elem];
+                }else{
+                    data.dataType.append(elem);
+                }
+            }, this);
+            console.log(data);
+        },
+        dataType: "text",
+        complete: function () {
+           console.log("TODO: finsih adding json to map")
+        }
+    });
+    }
     L.control.layers(tiles, overlays).addTo(map);
-    addSearchBar();
     //bind the searchbox text input of enter to the search function
     $('#searchboxinput').keyup(function (e) {
         if (e.keyCode === 13) {
