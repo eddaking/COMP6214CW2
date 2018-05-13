@@ -128,13 +128,13 @@ function loadPharmacies(){
 function createPharmacyLayer(data){
     var pharmacyMarkers = L.layerGroup();
     //get lat long corods
-    for (i = 1; i < dataPharm.length; i++) {
-        lat = dataPharm[i][1];
-        lng = dataPharm[i][2];
+    for (i = 1; i < data.length; i++) {
+        lat = data[i][1];
+        lng = data[i][2];
         //cut out data from not in southampton, due to volume of data casuing perfomance issues
         if (lng > -2 & lng < -1 & lat < 51.5){
             var markerP = L.marker(new L.LatLng(lat, lng));
-            markerP.bindPopup(dataPharm[i][0]);
+            markerP.bindPopup(data[i][0]);
             pharmacyMarkers.addLayer(markerP);
         }
     }
