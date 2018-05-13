@@ -24,7 +24,7 @@ function getConnection(dbname){
         });
 }
 
-var dbo = getConnection('mydb');
+var dbo = getConnection('houseguru');
 var getPoints = function(param, cb) {
 
         console.log(param.lat, param.long, param.dist);
@@ -36,7 +36,7 @@ var getPoints = function(param, cb) {
             $maxDistance : Number(param.dist)
           }
         };
-        dbo.collection('things').find(query).toArray(cb);
+        dbo.collection('places').find(query).toArray(cb);
     }
 
 // app.use('/', express.static(__dirname + '/index2.html'));
@@ -57,5 +57,5 @@ app.get('/', function(req, res) {
 
 app.use('/', express.static(public));
 
-app.listen(3000, "localhost")
+app.listen(8080, "167.99.88.178")
 console.log("server is listening om localhost")

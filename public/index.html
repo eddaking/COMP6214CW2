@@ -1,10 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="">
-
+ <!-- Using this file -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>ClassiPost | Home 1</title>
+    <title>ClassiPost | Home 2</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -26,15 +26,26 @@
     <link rel="stylesheet" type="text/css" href="css/magnific-popup.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> -->
+  	<!-- <meta name="viewport" content="width=device-width,initial-scale=1" /> -->
+  	<!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script> -->
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.csv.js"></script>
+    <script type="text/javascript" src="leaflet/leaflet131.js"></script>
+    <script type="text/javascript" src="leaflet/leaflet-heat.js"></script>
+    <script type="text/javascript" src="leaflet/leaflet.markercluster.js"></script>
+
+
+  	<link rel="stylesheet" type="text/css" href="css/leaflet.css" />
+  	<link rel="stylesheet" href="css/MarkerCluster.css" />
+  	<link rel="stylesheet" href="css/MarkerCluster.Default.css" />
 </head>
 
 <body>
     <!--[if lt IE 8]>
-    <p class="browserupgrade">You are using an 
-        <strong>outdated</strong> browser. Please 
-        <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
-    </p>
-    <![endif]-->
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
     <!-- Add your site or application content here -->
     <!-- Preloader Start Here -->
     <div id="preloader"></div>
@@ -89,8 +100,8 @@
                                         <ul>
                                             <li><a href="#">Home</a>
                                                 <ul class="cp-dropdown-menu">
-                                                    <li class="active"><a href="index.html">Home 1</a></li>
-                                                    <li><a href="index2.html">Home 2</a></li>
+                                                    <li><a href="index.html">Home 1</a></li>
+                                                    <li class="active"><a href="index2.html">Home 2</a></li>
                                                     <li><a href="index3.html">Home 3</a></li>
                                                     <li><a href="index4.html">Home 4</a></li>
                                                 </ul>
@@ -204,344 +215,512 @@
             <!-- Mobile Menu Area End -->
         </header>
         <!-- Header Area End Here -->
+        <!-- Map Area Start Here -->
+        <section class="map-layout1 fixed-menu-mt full-width-container" >
+            <div class="container-fluid">
+                <div class="google-map-area">
+                    <!-- <div id="googleMap" style="width:100%; height:1400px;"></div> -->
+                    <div class="center-block" id="mapid" style="height: 90vh;z-index: 2;">
+
+                  	</div>
+                </div>
+            </div>
+        </section>
+        <!-- Map Area End Here -->
         <!-- Search Area Start Here -->
-        <section class="search-layout1 bg-body full-width-border-bottom fixed-menu-mt">
-            <div class="container">
-                <form id="cp-search-form">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                            <div class="form-group search-input-area input-icon-location">
-                                <select id="location" class="select2">
-                                    <option class="first" value="0">Select Location</option>
-                                    <option value="1">Paypal</option>
-                                    <option value="2">Master Card</option>
-                                    <option value="3">Visa Card</option>
-                                    <option value="4">Scrill</option>
-                                </select>
+        <section class="search-layout2 bg-accent">
+            <div class="search-layout2-holder">
+                <div class="container">
+                    <form id="cp-search-form" class="bg-body search-layout2-inner">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group search-input-area input-icon-location">
+                                    <select id="location" class="select2">
+                                        <option value="0">Select Location</option>
+                                        <option value="1">Paypal</option>
+                                        <option value="2">Master Card</option>
+                                        <option value="3">Visa Card</option>
+                                        <option value="4">Scrill</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group search-input-area input-icon-category">
+                                    <select id="categories" class="select2">
+                                        <option value="0">Select Categories</option>
+                                        <option value="1">Paypal</option>
+                                        <option value="2">Master Card</option>
+                                        <option value="3">Visa Card</option>
+                                        <option value="4">Scrill</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group search-input-area input-icon-keywords">
+                                    <input placeholder="Enter Keywords here ..." value="" name="key-word" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-12 text-right text-left-mb">
+                                <a href="#" class="cp-search-btn"><i class="fa fa-search" aria-hidden="true"></i>Search</a>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                            <div class="form-group search-input-area input-icon-category">
-                                <select id="categories" class="select2">
-                                    <option class="first" value="0">Select Categories</option>
-                                    <option value="1">Paypal</option>
-                                    <option value="2">Master Card</option>
-                                    <option value="3">Visa Card</option>
-                                    <option value="4">Scrill</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                            <div class="form-group search-input-area input-icon-keywords">
-                                <input placeholder="Enter Keywords here ..." value="" name="key-word" type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-12 text-right text-left-mb">
-                            <a href="#" class="cp-search-btn">
-                                <i class="fa fa-search" aria-hidden="true"></i>Search
-                            </a>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </section>
         <!-- Search Area End Here -->
         <!-- Service Area Start Here -->
-        <section class="service-layout1 bg-accent s-space-custom2">
+        <section class="service-layout1 bg-accent s-space-custom3">
             <div class="container">
                 <div class="section-title-dark">
-                    <h1>Welcome To ClassiPost Classified</h1>
                     <p>Browse Our Top Categories</p>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 item-mb">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 item-mb">
                         <div class="service-box1 bg-body text-center">
                             <img src="img/service/service1.png" alt="service" class="img-fluid">
-                            <h3 class="title-medium-dark mb-none">
-                                <a href="category-grid-layout1.html">Electronics</a>
-                            </h3>
+                            <h3 class="title-medium-dark mb-none"><a href="category-list-layout1.html">Electronics</a></h3>
                             <div class="view">(19,805)</div>
-                            <p>Emply dummy text of the printing and taypng industrxt ever sincknown.</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 item-mb">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 item-mb">
                         <div class="service-box1 bg-body text-center">
                             <img src="img/service/service2.png" alt="service" class="img-fluid">
-                            <h3 class="title-medium-dark mb-none">
-                                <a href="category-grid-layout2.htm">Cars &amp; Vehicles</a>
-                            </h3>
+                            <h3 class="title-medium-dark mb-none"><a href="category-grid-layout1.html">Cars &amp; Vehicles</a></h3>
                             <div class="view">(12,857)</div>
-                            <p>Emply dummy text of the printing and taypng industrxt ever sincknown.</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 item-mb">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 item-mb">
                         <div class="service-box1 bg-body text-center">
                             <img src="img/service/service3.png" alt="service" class="img-fluid">
-                            <h3 class="title-medium-dark mb-none">
-                                <a href="category-grid-layout3.html">Overseas Jobs</a>
-                            </h3>
+                            <h3 class="title-medium-dark mb-none"><a href="category-list-layout2.html">Overseas Jobs</a></h3>
                             <div class="view">(16,267)</div>
-                            <p>Emply dummy text of the printing and taypng industrxt ever sincknown.</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 item-mb">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 item-mb">
                         <div class="service-box1 bg-body text-center">
                             <img src="img/service/service4.png" alt="service" class="img-fluid">
-                            <h3 class="title-medium-dark mb-none">
-                                <a href="category-list-layout1.html">Pets &amp; Animals</a>
-                            </h3>
+                            <h3 class="title-medium-dark mb-none"><a href="category-grid-layout2.html">Pets &amp; Animals</a></h3>
                             <div class="view">(1,245)</div>
-                            <p>Emply dummy text of the printing and taypng industrxt ever sincknown.</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 item-mb">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 item-mb">
                         <div class="service-box1 bg-body text-center">
                             <img src="img/service/service5.png" alt="service" class="img-fluid">
-                            <h3 class="title-medium-dark mb-none">
-                                <a href="category-list-layout2.html">Hobby, Sport &amp; Kids</a>
-                            </h3>
+                            <h3 class="title-medium-dark mb-none"><a href="category-list-layout3.html">Hobby, Sport &amp; Kids</a></h3>
                             <div class="view">(15,897)</div>
-                            <p>Emply dummy text of the printing and taypng industrxt ever sincknown.</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 item-mb">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 item-mb">
                         <div class="service-box1 bg-body text-center">
                             <img src="img/service/service6.png" alt="service" class="img-fluid">
-                            <h3 class="title-medium-dark mb-none">
-                                <a href="category-list-layout3.html">House &amp; Appartment</a>
-                            </h3>
+                            <h3 class="title-medium-dark mb-none"><a href="category-grid-layout3.html">House &amp; Appartment</a></h3>
                             <div class="view">(13,657)</div>
-                            <p>Emply dummy text of the printing and taypng industrxt ever sincknown.</p>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 item-mb">
+                        <div class="service-box1 bg-body text-center">
+                            <img src="img/service/service7.png" alt="service" class="img-fluid">
+                            <h3 class="title-medium-dark mb-none"><a href="category-list-layout1.html">Education</a></h3>
+                            <div class="view">(19,227)</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 item-mb">
+                        <div class="service-box1 bg-body text-center">
+                            <img src="img/service/service8.png" alt="service" class="img-fluid">
+                            <h3 class="title-medium-dark mb-none"><a href="category-grid-layout1.html">Home &amp; Garden</a></h3>
+                            <div class="view">(11,607)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="text-center item-mt item-mb">
+                    <h2 class="title-bold-dark mb-none">Do you have Something to Sell?</h2>
+                    <p>Post your ad on classipost.com</p>
+                    <a href="#" class="cp-default-btn direction-img">Post Your Ad Now!</a>
                 </div>
             </div>
         </section>
         <!-- Service Area End Here -->
         <!-- Products Area Start Here -->
-        <section class="bg-body s-space-default">
+        <section class="products-layout1 bg-body s-space-default">
             <div class="container">
                 <div class="section-title-dark">
-                    <h2>Buy &amp; Sell Online Products</h2>
+                    <h2>Our Featured Products</h2>
                     <p>Browse To Our Top Products</p>
                 </div>
             </div>
-            <div class="container" id="isotope-container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="isotope-classes-tab isotop-btn">
-                            <a href="#" data-filter=".new" class="current">New</a>
-                            <a href="#" data-filter=".featured">Featured</a>
-                            <a href="#" data-filter=".random">Random</a>
-                        </div>
-                    </div>
-                </div>
-                <div id="category-view" class="category-grid-layout2">
-                    <div class="row featuredContainer">
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 new featured">
-                            <div class="product-box item-mb zoom-gallery">
-                                <div class="item-mask-wrapper">
-                                    <div class="item-mask bg-box"><img src="img/product/product1.png" alt="categories" class="img-fluid">
-                                        <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
-                                        <div class="title-ctg">Clothing</div>
-                                        <ul class="info-link">
-                                            <li><a href="img/product/product1.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
-                                            <li><a href="single-product-layout1.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                        <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
-                                    </div>
-                                </div>
-                                <div class="item-content">
+            <div class="container menu-list-wrapper">
+                <div class="row menu-list category-grid-layout2 zoom-gallery">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%203JL.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
                                     <div class="title-ctg">Clothing</div>
-                                    <h3 class="short-title"><a href="single-product1.html">Cotton T-Shirt</a></h3>
-                                    <h3 class="long-title"><a href="single-product1.html">Men's Basic Cotton T-Shirt</a></h3>
-                                    <ul class="upload-info">
-                                        <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
-                                        <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney, Australia</li>
-                                        <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%203JL.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout1.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
                                     </ul>
-                                    <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
-                                    <div class="price">$15</div>
-                                    <a href="single-product-layout1.html" class="product-details-btn">Details</a>
+                                    <div class="symbol-featured"><img src="img/propertypictures/SO16-3JL.png" alt="symbol" class="img-fluid"> </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 featured random">
-                            <div class="product-box item-mb zoom-gallery">
-                                <div class="item-mask-wrapper">
-                                    <div class="item-mask bg-box"><img src="img/product/product2.png" alt="categories" class="img-fluid">
-                                        <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
-                                        <div class="title-ctg">Electronics</div>
-                                        <ul class="info-link">
-                                            <li><a href="img/product/product2.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
-                                            <li><a href="single-product-layout2.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                        <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="title-ctg">Clothing</div>
-                                    <h3 class="short-title"><a href="single-product2.html">Patriot Phone</a></h3>
-                                    <h3 class="long-title"><a href="single-product2.html">HTC Desire Patriot Mobile Smart Phone</a></h3>
-                                    <ul class="upload-info">
-                                        <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
-                                        <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney, Australia</li>
-                                        <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
-                                    </ul>
-                                    <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
-                                    <div class="price">$250</div>
-                                    <a href="single-product-layout2.html" class="product-details-btn">Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 random new">
-                            <div class="product-box item-mb zoom-gallery">
-                                <div class="item-mask-wrapper">
-                                    <div class="item-mask bg-box"><img src="img/product/product3.png" alt="categories" class="img-fluid">
-                                        <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
-                                        <div class="title-ctg">Electronics</div>
-                                        <ul class="info-link">
-                                            <li><a href="img/product/product3.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
-                                            <li><a href="single-product-layout3.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                        <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="title-ctg">Clothing</div>
-                                    <h3 class="short-title"><a href="single-product3.html">Smart LED TV</a></h3>
-                                    <h3 class="long-title"><a href="single-product3.html">TCL 55-Inch 4K Ultra HD Roku Smart LED TV</a></h3>
-                                    <ul class="upload-info">
-                                        <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
-                                        <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney, Australia</li>
-                                        <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
-                                    </ul>
-                                    <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
-                                    <div class="price">$800</div>
-                                    <a href="single-product-layout3.html" class="product-details-btn">Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 featured new random">
-                            <div class="product-box item-mb zoom-gallery">
-                                <div class="item-mask-wrapper">
-                                    <div class="item-mask bg-box"><img src="img/product/product4.png" alt="categories" class="img-fluid">
-                                        <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
-                                        <div class="title-ctg">Clothing</div>
-                                        <ul class="info-link">
-                                            <li><a href="img/product/product4.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
-                                            <li><a href="single-product-layout1.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                        <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="title-ctg">Clothing</div>
-                                    <h3 class="short-title"><a href="single-product1.html">Headphones</a></h3>
-                                    <h3 class="long-title"><a href="single-product1.html">Basics Lightweight On-Ear Headphones</a></h3>
-                                    <ul class="upload-info">
-                                        <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
-                                        <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney, Australia</li>
-                                        <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
-                                    </ul>
-                                    <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
-                                    <div class="price">$15</div>
-                                    <a href="single-product-layout1.html" class="product-details-btn">Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 new">
-                            <div class="product-box item-mb zoom-gallery">
-                                <div class="item-mask-wrapper">
-                                    <div class="item-mask bg-box"><img src="img/product/product5.png" alt="categories" class="img-fluid">
-                                        <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
-                                        <div class="title-ctg">Clothing</div>
-                                        <ul class="info-link">
-                                            <li><a href="img/product/product5.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
-                                            <li><a href="single-product-layout2.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                        <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="title-ctg">Clothing</div>
-                                    <h3 class="short-title"><a href="single-product2.html">Handbags</a></h3>
-                                    <h3 class="long-title"><a href="single-product2.html">MMK collection Women Fashion Matching Satchel handbags</a></h3>
-                                    <ul class="upload-info">
-                                        <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
-                                        <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney, Australia</li>
-                                        <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
-                                    </ul>
-                                    <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
-                                    <div class="price">$15</div>
-                                    <a href="single-product-layout2.html" class="product-details-btn">Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 featured new">
-                            <div class="product-box item-mb zoom-gallery">
-                                <div class="item-mask-wrapper">
-                                    <div class="item-mask bg-box"><img src="img/product/product6.png" alt="categories" class="img-fluid">
-                                        <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
-                                        <div class="title-ctg">Clothing</div>
-                                        <ul class="info-link">
-                                            <li><a href="img/product/product6.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
-                                            <li><a href="single-product-layout3.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                        <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="title-ctg">Clothing</div>
-                                    <h3 class="short-title"><a href="single-product3.html">Classic Watch</a></h3>
-                                    <h3 class="long-title"><a href="single-product3.html">Men's Classic Sport Watch with Black Band</a></h3>
-                                    <ul class="upload-info">
-                                        <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
-                                        <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney, Australia</li>
-                                        <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
-                                    </ul>
-                                    <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
-                                    <div class="price">$15</div>
-                                    <a href="single-product-layout3.html" class="product-details-btn">Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 random new">
-                            <div class="product-box item-mb zoom-gallery">
-                                <div class="item-mask-wrapper">
-                                    <div class="item-mask bg-box"><img src="img/product/product7.png" alt="categories" class="img-fluid">
-                                        <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
-                                        <div class="title-ctg">Clothing</div>
-                                        <ul class="info-link">
-                                            <li><a href="img/product/product7.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
-                                            <li><a href="single-product-layout1.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                        <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="title-ctg">Clothing</div>
-                                    <h3 class="short-title"><a href="single-product1.html">V-Neck T-Shirt</a></h3>
-                                    <h3 class="long-title"><a href="single-product1.html">Men's Threadborne Streaker V-Neck T-Shirt</a></h3>
-                                    <ul class="upload-info">
-                                        <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
-                                        <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney, Australia</li>
-                                        <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
-                                    </ul>
-                                    <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
-                                    <div class="price">$15</div>
-                                    <a href="single-product-layout1.html" class="product-details-btn">Details</a>
-                                </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product1.html">SO16 3JL	</a></h3>
+                                <h3 class="long-title"><a href="single-product1.html">Men's Basic Cotton T-Shirt</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£300,000</div>
+                                <a href="single-product-layout1.html" class="product-details-btn">Details</a>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%203DZ.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Electronics</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%203DZ.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout2.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product2.html">SO16 03DZ</a></h3>
+                                <h3 class="long-title"><a href="single-product2.html">HTC Desire Patriot Mobile Smart Phone</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£32,000</div>
+                                <a href="single-product-layout2.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%203JH.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Electronics</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%203JH.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout3.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product3.html">SO16 3JH	</a></h3>
+                                <h3 class="long-title"><a href="single-product3.html">TCL 55-Inch 4K Ultra HD Roku Smart LED TV</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£450,000</div>
+                                <a href="single-product-layout3.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO17%203SW.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Clothing</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO17%203SW.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout1.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product1.html">SO17 3SW	</a></h3>
+                                <h3 class="long-title"><a href="single-product1.html">Basics Lightweight On-Ear Headphones</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£500,000</div>
+                                <a href="single-product-layout1.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%203HA.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Clothing</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%203HA.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout2.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product2.html">SO16 3HA	</a></h3>
+                                <h3 class="long-title"><a href="single-product2.html">MMK collection Women Fashion Matching Satchel handbags</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£620,000</div>
+                                <a href="single-product-layout2.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO17%203AG.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Clothing</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO17%203AG.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout3.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product3.html">SO17 3AG	</a></h3>
+                                <h3 class="long-title"><a href="single-product3.html">Men's Classic Sport Watch with Black Band</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£120,000</div>
+                                <a href="single-product-layout3.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO17%201PX.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">SO17 1PX	</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO17%201PX.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout1.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">	</div>
+                                <h3 class="short-title"><a href="single-product1.html">SO16 3GN</a></h3>
+                                <h3 class="long-title"><a href="single-product1.html">Men's Threadborne Streaker V-Neck T-Shirt</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£220,000</div>
+                                <a href="single-product-layout1.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%203GN.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Clothing</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%203GN.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout2.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product2.html">SO16 2NQ	</a></h3>
+                                <h3 class="long-title"><a href="single-product2.html">Apple iPhone 6 Plus Phone Red Cover</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£530,000</div>
+                                <a href="single-product-layout2.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item hidden">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%203DX.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Clothing</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%203DX.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout3.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product3.html">SO16 3DX	</a></h3>
+                                <h3 class="long-title"><a href="single-product3.html">Anti-Rust Stainless Steel Chain Corner Ring</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£236,000</div>
+                                <a href="single-product-layout3.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item hidden">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%203EH.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Clothing</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%203EH.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout1.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product1.html">SO16 3EH	</a></h3>
+                                <h3 class="long-title"><a href="single-product1.html">Travel bag,ergonomic and Anti-theft bag</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£890,000</div>
+                                <a href="single-product-layout1.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item hidden">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%203LD.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Electronics</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%203LD.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout2.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product2.html">SO16 3LD	</a></h3>
+                                <h3 class="long-title"><a href="single-product2.html">Polarized Clubmaster Classic Half Frame Semi-Rimless Sunglasses</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£180,000</div>
+                                <a href="single-product-layout2.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item hidden">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO16%20167.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Electronics</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO16%20167.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout3.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product3.html">SO16 167	</a></h3>
+                                <h3 class="long-title"><a href="single-product3.html">Sport Women's D'Lites Memory Foam Lace-up Sneaker</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£390,000</div>
+                                <a href="single-product-layout3.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 menu-item hidden">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-box"><img src="img/propertypictures/SO17%201PX.png" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">Clothing</div>
+                                    <ul class="info-link">
+                                        <li><a href="img/propertypictures/SO17%201PX.png" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="single-product-layout1.html"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="single-product1.html">SO17 1PX	</a></h3>
+                                <h3 class="long-title"><a href="single-product1.html">Bluetooth Headphones Over Ear Stereo Wireless Headset</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Southampton, UK</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price">£760,000</div>
+                                <a href="single-product-layout1.html" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                   
                 </div>
-            </div>
-            <div class="container">
-                <div class="text-center item-mt">
-                    <h2 class="title-bold-dark mb-none">Do you have Something to Sell?</h2>
-                    <p>Post your ad on classipost.com</p>
-                    <a href="#" class="cp-default-btn direction-img">Post Your Ad Now!</a>
+                <div class="loadmore text-center item-mt">
+                    <a href="#" class="cp-default-btn-primary">See All Album</a>
                 </div>
             </div>
         </section>
@@ -550,10 +729,10 @@
         <section class="overlay-default s-space-equal overflow-hidden" style="background-image: url('img/banner/counter-back1.jpg');">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-4 col-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-12">
                         <div class="d-md-flex justify-md-content-center counter-box text-center--md">
                             <div>
-                                <img src="img/banner/counter1.png" alt="counter" class="img-fluid mb20-auto--md">
+                                <img src="img/banner/counter4.png" alt="counter" class="img-fluid mb20-auto--md">
                             </div>
                             <div>
                                 <div class="counter counter-title" data-num="100000">1,00,000</div>
@@ -561,10 +740,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-12">
                         <div class="d-md-flex justify-md-content-center counter-box text-center--md">
                             <div>
-                                <img src="img/banner/counter2.png" alt="counter" class="img-fluid mb20-auto--md">
+                                <img src="img/banner/counter5.png" alt="counter" class="img-fluid mb20-auto--md">
                             </div>
                             <div>
                                 <div class="counter counter-title" data-num="500000">5,00,000</div>
@@ -572,10 +751,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-12">
                         <div class="d-md-flex justify-md-content-center counter-box text-center--md">
                             <div>
-                                <img src="img/banner/counter3.png" alt="counter" class="img-fluid mb20-auto--md">
+                                <img src="img/banner/counter6.png" alt="counter" class="img-fluid mb20-auto--md">
                             </div>
                             <div>
                                 <div class="counter counter-title" data-num="200000">2,00,000</div>
@@ -595,12 +774,10 @@
                     <p>It’s very Simple to choose pricing &amp; Plan</p>
                 </div>
                 <div class="row d-md-flex">
-                    <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-5 col-md-12 col-12">
                         <div class="pricing-box bg-box">
                             <div class="plan-title">Free Post</div>
-                            <div class="price">
-                                <span class="currency">$</span>0
-                                <span class="duration">/ Per mo</span>
+                            <div class="price"><span class="currency">$</span>0<span class="duration">/ Per mo</span>
                             </div>
                             <h3 class="title-bold-dark size-xl">Always FREE Ad Posting</h3>
                             <p>Post as many ads as you like for 30 days without limitations and 100% FREE SUBMIT AD</p>
@@ -610,12 +787,10 @@
                     <div class="d-flex align-items-center col-lg-2 col-md-12 col-sm-12 col-12">
                         <div class="other-option bg-primary">or</div>
                     </div>
-                    <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-5 col-md-12 col-12">
                         <div class="pricing-box bg-box">
                             <div class="plan-title">Premium Post</div>
-                            <div class="price">
-                                <span class="currency">$</span>19
-                                <span class="duration">/ Per mo</span>
+                            <div class="price"><span class="currency">$</span>19<span class="duration">/ Per mo</span>
                             </div>
                             <h3 class="title-bold-dark size-xl">Featured Ad Posting</h3>
                             <p>Post as many ads as you like for 30 days without limitations and 100% FREE SUBMIT AD</p>
@@ -663,7 +838,7 @@
                 <div class="input-group subscribe-area">
                     <input type="text" placeholder="Type your e-mail address" class="form-control">
                     <span class="input-group-addon">
-                        <button type="submit" class="cp-default-btn-xl">Subscribe</button>                        
+                        <button type="submit" class="cp-default-btn-xl">Subscribe</button>
                     </span>
                 </div>
             </div>
@@ -874,7 +1049,7 @@
     </div>
     <!-- Report Abuse Modal End-->
     <!-- jquery-->
-    <script src="js/jquery-2.2.4.min.js "></script>
+    <!-- <script src="js/jquery-2.2.4.min.js "></script> -->
     <!-- Popper js -->
     <script src="js/popper.js"></script>
     <!-- Bootstrap js -->
@@ -894,8 +1069,15 @@
     <script src="js/isotope.pkgd.min.js "></script>
     <!-- Magnific Popup -->
     <script src="js/jquery.magnific-popup.min.js"></script>
+    <!-- Google Map js -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4"></script> -->
     <!-- Custom Js -->
-    <script src="js/main.js "></script>
-</body>
 
+    <script src="js/main.js "></script>
+    <script type="text/javascript" src="map.js"></script>
+
+</body>
+<script>
+    load();
+</script>
 </html>
