@@ -261,20 +261,20 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
     });
 }
 
-function addSearchBar(){
-    var searchboxControl=createSearchboxControl();
-    var control = new searchboxControl({
-        sidebarMenuItems: {
-            Items: []}
-    });
-    control._searchfunctionCallBack = function (input)
-    {
-        if (input) {
-            search(input)
-        }
-    }
-    map.addControl(control);
-}
+// function addSearchBar(){
+//     var searchboxControl=createSearchboxControl();
+//     var control = new searchboxControl({
+//         sidebarMenuItems: {
+//             Items: []}
+//     });
+//     control._searchfunctionCallBack = function (input)
+//     {
+//         if (input) {
+//             search(input)
+//         }
+//     }
+//     map.addControl(control);
+// }
 
 //method to load all resources to the map (and the map)
 function load(){
@@ -294,7 +294,7 @@ function load(){
         overlays["Food Retailers"] = loadFood();
         overlays["Railways"] = loadRails();
         overlays["Properties"] = loadProperties();
-        addSearchBar();
+        //addSearchBar();
     }else{
         var centre = map.getCenter();
         var data;
