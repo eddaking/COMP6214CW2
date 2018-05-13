@@ -287,6 +287,7 @@ function load(){
         dataType: "text",
         complete: function () {
            console.log("TODO: finsih adding json to map")
+        }
     });
     }
     L.control.layers(tiles, overlays).addTo(map);
