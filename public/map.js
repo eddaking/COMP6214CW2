@@ -51,14 +51,14 @@ function loadCrimes(){
 //create crime clusterMap layer for map
 function createCrimeClusterMapLayer(data){
     var crimeMarkers = L.markerClusterGroup();
-    var crimeIcon = L.icon({
+    var icon = L.icon({
         iconUrl: 'img/mapIcons/crime.png',
         iconSize: [32, 32]
     });
     crimeMarkers.bringToFront();
     //get lat long corods
     for (i = 1; i < data.length; i++) {
-        var marker = L.marker(new L.LatLng(data[i][5], data[i][4]), { icon: crimeIcon, title: data[i][9] });
+        var marker = L.marker(new L.LatLng(data[i][5], data[i][4]), { icon: icon, title: data[i][9] });
         marker.bindPopup(data[i][9]);
         crimeMarkers.addLayer(marker);
     }
@@ -98,13 +98,17 @@ function loadSchools(){
 //create schools layer for map
 function createSchoolLayer(data){
     var schoolMarkers = L.layerGroup();
+    var icon = L.icon({
+        iconUrl: 'img/mapIcons/school.png',
+        iconSize: [32, 32]
+    });
     for (i = 1; i < data.length; i++) {
         //get lat long corods
         lat = data[i][6];
         lng = data[i][7];
         //cut out data from not in southampton, due to sheer volume of data casuing perfomance issues
         if (lng > -2 & lng < -1 & lat < 51.5){
-            var markerS = L.marker(new L.LatLng(lat, lng));
+            var markerS = L.marker(new L.LatLng(lat, lng), { icon: icon });
             markerS.bindPopup(data[i][0]);
             schoolMarkers.addLayer(markerS);
         }
@@ -131,13 +135,17 @@ function loadPharmacies(){
 //create pharmacies layer for map
 function createPharmacyLayer(data){
     var pharmacyMarkers = L.layerGroup();
+    var icon = L.icon({
+        iconUrl: 'img/mapIcons/pharmacy.png',
+        iconSize: [32, 32]
+    });
     //get lat long corods
     for (i = 1; i < data.length; i++) {
         lat = data[i][1];
         lng = data[i][2];
         //cut out data from not in southampton, due to volume of data casuing perfomance issues
         if (lng > -2 & lng < -1 & lat < 51.5){
-            var markerP = L.marker(new L.LatLng(lat, lng));
+            var markerP = L.marker(new L.LatLng(lat, lng), { icon: icon });
             markerP.bindPopup(data[i][0]);
             pharmacyMarkers.addLayer(markerP);
         }
@@ -164,12 +172,16 @@ function loadFood(){
 //create food retailer layer for map
 function createFoodLayer(data){
     var foodMarkers = L.layerGroup();
+    var icon = L.icon({
+        iconUrl: 'img/mapIcons/restaurant.png',
+        iconSize: [32, 32]
+    });
     //get lat long corods
     for (i = 1; i < data.length; i++) {
         if (data[i][3] != "Hospitals/Childcare/Caring Premises" && data[i][3] != "School/college/university"){
             lat = data[i][21];
             lng = data[i][20];
-            var markerF = L.marker(new L.LatLng(lat, lng));
+            var markerF = L.marker(new L.LatLng(lat, lng), { icon: icon });
             markerF.bindPopup(data[i][2]);
             foodMarkers.addLayer(markerF);
         }
@@ -196,11 +208,15 @@ function loadProperties(){
 //create property layer for map
 function createPropertyLayer(data){
     var propertyMarkers = L.layerGroup();
+    var icon = L.icon({
+        iconUrl: 'img/mapIcons/house.png',
+        iconSize: [32, 32]
+    });
     //get lat long corods
     for (i = 1; i < data.length; i++) {
         lat = data[i][0];
         lng = data[i][1];
-        var markerP = L.marker(new L.LatLng(lat, lng));
+        var markerP = L.marker(new L.LatLng(lat, lng), { icon: icon });
         markerP.bindPopup("£" + data[i][3]);
         propertyMarkers.addLayer(markerP);
     }
@@ -226,11 +242,15 @@ function loadRails(){
 //create railway station layer for map
 function createRailLayer(data){
     var railMarkers = L.layerGroup();
+    var icon = L.icon({
+        iconUrl: 'img/mapIcons/railway.png',
+        iconSize: [32, 32]
+    });
     //get lat long corods
     for (i = 1; i < data.length; i++) {
         lat = data[i][4];
         lng = data[i][5];
-        var markerR = L.marker(new L.LatLng(lat, lng));
+        var markerR = L.marker(new L.LatLng(lat, lng), { icon: icon });
         markerR.bindPopup(data[i][2]);
         railMarkers.addLayer(markerR);
     }
