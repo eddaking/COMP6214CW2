@@ -53,7 +53,7 @@ function createCrimeClusterMapLayer(data){
     var crimeMarkers = L.markerClusterGroup();
     var crimeIcon = L.icon({
         iconUrl: 'img/mapIcons/crime.png',
-        iconSize: [38, 95]
+        iconSize: [32, 32]
     });
     crimeMarkers.bringToFront();
     //get lat long corods
