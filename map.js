@@ -270,7 +270,7 @@ function load(){
         var centre = map.getCenter();
         var data;
         $.ajax({
-        url: "getPoints?lat=" + centre[0] + "&long="+ centre[1] +"&dist=0.01",
+        url: "http://167.99.88.178/getPoints?lat=" + centre[0] + "&long="+ centre[1] +"&dist=0.01",
         async: false,
         success: function (jsonArray) {
             data = $.csv.toArrays(jsonArray);
@@ -287,6 +287,7 @@ function load(){
         dataType: "text",
         complete: function () {
            console.log("TODO: finsih adding json to map")
+        }
     });
     }
     L.control.layers(tiles, overlays).addTo(map);
