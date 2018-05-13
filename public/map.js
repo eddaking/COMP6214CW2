@@ -345,7 +345,7 @@ function load(){
     }
     L.control.layers(tiles, overlays).addTo(map);
     //bind the searchbox text input of enter to the search function
-    $('#searchboxinput').keyup(function (e) {
+    $('#LocationSearch').keyup(function (e) {
         if (e.keyCode === 13) {
             var input = $('#LocationSearch').val();
             if(input){
@@ -356,7 +356,7 @@ function load(){
     $('#SearchButton').click(function(){
         var input = $('#LocationSearch').val();
         if(input){
-            search($('#LocationSearch').val());
+            search(input);
         }
     });
 }
