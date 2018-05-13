@@ -347,10 +347,16 @@ function load(){
     //bind the searchbox text input of enter to the search function
     $('#searchboxinput').keyup(function (e) {
         if (e.keyCode === 13) {
-            var input = $('#searchboxinput').val();
+            var input = $('#LocationSearch').val();
             if(input){
                 search(input);
             }
+        }
+    });
+    $('#SearchButton').click(function(){
+        var input = $('#LocationSearch').val();
+        if(input){
+            search($('#LocationSearch').val());
         }
     });
 }
