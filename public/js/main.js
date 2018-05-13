@@ -170,13 +170,13 @@
     /*-------------------------------------
     // Select2 activation code
     -------------------------------------*/
-    if ($('#cp-search-form select.select2, #cp-search-form2 select.select2, #post-add-form select.select2').length) {
-        $('#cp-search-form select.select2, #cp-search-form2 select.select2, #post-add-form select.select2').select2({
-            theme: 'classic',
-            dropdownAutoWidth: true,
-            width: '100%'
-        });
-    }
+    // if ($('#cp-search-form select.select2, #cp-search-form2 select.select2, #post-add-form select.select2').length) {
+    //     $('#cp-search-form select.select2, #cp-search-form2 select.select2, #post-add-form select.select2').select2({
+    //         theme: 'classic',
+    //         dropdownAutoWidth: true,
+    //         width: '100%'
+    //     });
+    // }
     /*-------------------------------------
     // Window load function
      -------------------------------------*/
