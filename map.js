@@ -63,7 +63,6 @@ function loadCrimes(){
 
 //schools
 function loadSchools(){
-    var schoolMarkers = L.layerGroup();
     var dataSchool;
     $.ajax({
         url: "data/UKSchools.csv",
@@ -73,21 +72,24 @@ function loadSchools(){
             console.log("Schools: ")
             console.log(dataSchool.length);
         },
-        dataType: "text",
-        complete: function () {
-            //get lat long corods
-            for (i = 1; i < dataSchool.length; i++) {
-                lat = dataSchool[i][6];
-                lng = dataSchool[i][7];
-                //cut out data from not in southampton, due to sheer volume of data casuing perfomance issues
-                if (lng > -2 & lng < -1 & lat < 51.5){
-                    var markerS = L.marker(new L.LatLng(lat, lng));
-                    markerS.bindPopup(dataSchool[i][0]);
-                    schoolMarkers.addLayer(markerS);
-                }
-            }
-        }
+        dataType: "text"
     });
+    return createSchoolLayer(dataSchool);
+}
+
+function createSchoolLayer(data){
+    var schoolMarkers = L.layerGroup();
+    for (i = 1; i < data.length; i++) {
+        //get lat long corods
+        lat = data[i][6];
+        lng = data[i][7];
+        //cut out data from not in southampton, due to sheer volume of data casuing perfomance issues
+        //if (lng > -2 & lng < -1 & lat < 51.5){
+        var markerS = L.marker(new L.LatLng(lat, lng));
+        markerS.bindPopup(data[i][0]);
+        schoolMarkers.addLayer(markerS);
+        //}
+    }
     return schoolMarkers;
 }
 
