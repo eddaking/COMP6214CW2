@@ -314,7 +314,7 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
 
 //method to load all resources to the map (and the map)
 function load(){
-    var useOldMethod = true;
+    var useOldMethod = false;
     var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
     var overlays = {};
     var tiles = null;
@@ -354,7 +354,7 @@ function load(){
                 overlays["Crime Clustermap"] = createCrimeClusterMapLayer(data["crime"]);
             }
             overlays["House Price"] = loadHousePrice();
-            if (data[school]){
+            if (data["school"]){
                 overlays["Schools"] = createSchoolLayer(data["school"]);
             }
             if (data["pharmacy"]){
