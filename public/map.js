@@ -27,7 +27,7 @@ function loadHousePrice(){
 }   
 //load the crime data into the heat map and the cluster
 function loadCrimes(){
-    var data;
+    var data = [];
     var heat;
     //load csv of crimes
     var latlonArr = [];
@@ -46,7 +46,7 @@ function loadCrimes(){
                 }
             });
             console.log("Crime:");
-            onsole.log(data.length);
+            console.log(data.length);
        },
         dataType: "text"
     });
@@ -88,7 +88,7 @@ function createCrimeHeatmapLayer(data){
 
 //schools
 function loadSchools(){
-    var dataSchool;
+    var dataSchool = [];
     $.ajax({
         url: "data/UKSchools.csv",
         async: false,
@@ -172,7 +172,7 @@ function createPharmacyLayer(data){
 
 //food
 function loadFood(){
-    var dataFood;
+    var dataFood = [];
     $.ajax({
         url: "data/foodRatings.csv",
         async: false,
@@ -211,7 +211,7 @@ function createFoodLayer(data){
 
 //properties
 function loadProperties(){
-    var dataProps;
+    var dataProps = [];
     $.ajax({
         url: "data/propertylisting.csv",
         async: false,
@@ -250,7 +250,7 @@ function createPropertyLayer(data){
 
 //Railways
 function loadRails(){
-    var dataRails;
+    var dataRails = [];
     $.ajax({
         url: "data/UKRailStations.csv",
         async: false,
@@ -290,7 +290,7 @@ function createRailLayer(data){
 function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
     return new Promise( (resolve, reject) =>
     {
-        var data;
+        var data = [];
         $.ajax({
             url: dataLoc,
             async: false,
@@ -317,7 +317,7 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
 
 //method to load all resources to the map (and the map)
 function load(){
-    var useOldMethod = false;
+    var useOldMethod = true;
     var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
     var overlays = {};
     var tiles = null;
