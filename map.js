@@ -52,10 +52,8 @@ function loadCrimes(){
 function createCrimeClusterMapLayer(data){
     var crimeMarkers = L.markerClusterGroup();
     crimeMarkers.bringToFront();
-    var latlonArr = [];
     //get lat long corods
     for (i = 1; i < data.length; i++) {
-        latlonArr.push([data[i][5], data[i][4]]);
         var marker = L.marker(new L.LatLng(data[i][5], data[i][4]), { title: data[i][9] });
         marker.bindPopup(data[i][9]);
         crimeMarkers.addLayer(marker);
@@ -66,7 +64,7 @@ function createCrimeClusterMapLayer(data){
 
 //create crime heatmap layer for map
 function createCrimeHeatmapLayer(data){
-    var schoolMarkers = L.layerGroup();
+    var latlonArr = [];
     for (i = 1; i < data.length; i++) {
         //get lat long corods
         latlonArr.push([data[i][5], data[i][4]]);
