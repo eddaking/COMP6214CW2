@@ -52,6 +52,7 @@ function loadCrimes(){
 function createCrimeClusterMapLayer(data){
     var crimeMarkers = L.markerClusterGroup();
     crimeMarkers.bringToFront();
+    var latlonArr = [];
     //get lat long corods
     for (i = 1; i < data.length; i++) {
         latlonArr.push([data[i][5], data[i][4]]);
