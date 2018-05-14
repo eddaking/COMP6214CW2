@@ -40,7 +40,7 @@ function loadCrimes(){
             temp.forEach(function(elem){
                 lat = elem[5];
                 lng = elem[4];
-                data.push([lat, lng, elem[8]]);
+                data.push([lat, lng, elem[9]]);
             });
             console.log("Crimes:");
             console.log(data.length);
