@@ -314,7 +314,7 @@ function genericLoad(dataLoc, parentLayer, getLatLngNameFunc, limitArea){
 
 //method to load all resources to the map (and the map)
 function load(){
-    var useOldMethod = false;
+    var useOldMethod = true;
     var baselayer, housepriceTiles, crimeHeat,crimeClusters,schools, pharms;
     var overlays = {};
     var tiles = null;
@@ -410,7 +410,8 @@ function search(serachString){
             loc = response["results"][0]["geometry"]["location"]
             lat = loc["lat"];
             lng = loc["lng"];
-            map.panTo(new L.LatLng(lat, lng));
+            map.flyTo([lat,lng], 16);
+            //map.panTo(new L.LatLng(lat, lng));
         }
     });
 }
