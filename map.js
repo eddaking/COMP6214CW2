@@ -1,9 +1,9 @@
 var map = null;
 function createMap(){
     var map = L.map('mapid', {
-        center: [50.93414, -1.39550],
+        center: [52.23515, 0.14536],
         zoom: 14,
-        maxZoom:18,
+        maxZoom:19,
         zoomControl: false
     });
     zc = new L.control.zoom({position: 'bottomleft'});
@@ -197,7 +197,7 @@ function createPropertyLayer(data){
         lat = data[i][0];
         lng = data[i][1];
         var markerP = L.marker(new L.LatLng(lat, lng));
-        markerP.bindPopup("£" + data[i][3]);
+        markerP.bindPopup(data[i][2] + "<p>Deposit: " + data[i][4] + "<p>" + data[i][3] + "<p>Additional information: " + data[i][6] + "<p> <a href=\"" + data[i][5] + "\">" + data[i][5] + "</a>");
         propertyMarkers.addLayer(markerP);
     }
     return propertyMarkers;
@@ -286,13 +286,13 @@ function load(){
     loadMapTiles().addTo(map);
     if (useOldMethod){
         var temp = loadCrimes();
-        overlays["Crime Heatmap"] = temp[0];
-        overlays["Crime Clustermap"] = temp[1];
+        //overlays["Crime Heatmap"] = temp[0];
+        //overlays["Crime Clustermap"] = temp[1];
         overlays["House Price"] = loadHousePrice();
-        overlays["Schools"] = loadSchools();
-        overlays["Pharmacies"] = loadPharmacies();
-        overlays["Food Retailers"] = loadFood();
-        overlays["Railways"] = loadRails();
+        //overlays["Schools"] = loadSchools();
+        //overlays["Pharmacies"] = loadPharmacies();
+        //overlays["Food Retailers"] = loadFood();
+        //overlays["Railways"] = loadRails();
         overlays["Properties"] = loadProperties();
         //addSearchBar();
     }else{

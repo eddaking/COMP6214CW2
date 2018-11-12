@@ -1,14 +1,8 @@
-﻿lat,long,postcode,price
-50.94141,-1.38462,SO16 3JL,300000
-50.94335,-1.38438,SO16 3DZ,32000
-50.94185,-1.38716,SO16 3JH,450000
-50.93558,-1.38749,SO17 3SW,500000
-50.93976,-1.39417,SO16 3HA,620000
-50.93091,-1.38636,SO17 3AG,120000
-50.933,-1.39971,SO17 1PX,220000
-50.93943,-1.39824,SO16 3GN,530000
-50.94127,-1.37851,SO16 2NQ,236000
-50.94316,-1.38188,SO16 3DX,890000
-50.94379,-1.38444,SO16 3EH,180000
-50.94325,-1.38719,SO16 3LD,390000
-50.94446,-1.39018,SO16 167,760000
+﻿lat,long,price,furnished,deposit,link,additional information
+52.222480, 0.150819,"£1,100 pcm",furnished,"£1,000","https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=11361622","no additional fees"
+52.213842, 0.125536,"£1,300 pcm",furnished,"£1,300","https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=11246287","some additional fees"
+52.214306,0.126275,"£1,200 pcm",furnished,"£1,800","https://www.openrent.co.uk/property-to-rent/cambridge/2-bed-flat-chesterton-road-cb4/450378","no additional fees"
+52.196505, 0.141390,"£980 pcm",furnished,"Unknown","https://www.zoopla.co.uk/to-rent/details/49327975","agency fees ~£400-800"
+52.195872, 0.140980,"£895 pcm",furnished,"£1,200","https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=10376653","some additional fees"
+52.242647, 0.155578,"£800 pcm", furnished,"unknown","https://www.zoopla.co.uk/to-rent/details/39025496","some additional fees"
+52.223170, 0.148144,"£885 pcm", furnished,"unknown","https://www.haart.co.uk/renting/apartment-to-rent/north-cambridge-cb4/hrt042402034/","some additional fees"
