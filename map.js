@@ -180,6 +180,7 @@ function loadProperties(){
         url: "data/propertylisting.csv",
         async: false,
         success: function (csvd) {
+			console.log(csvd);
             dataProps = $.csv.toArrays(csvd);
             console.log("properties: ")
             console.log(dataProps.length);
@@ -285,7 +286,7 @@ function load(){
     map = createMap();
     loadMapTiles().addTo(map);
     if (useOldMethod){
-        var temp = loadCrimes();
+        //var temp = loadCrimes();
         //overlays["Crime Heatmap"] = temp[0];
         //overlays["Crime Clustermap"] = temp[1];
         overlays["House Price"] = loadHousePrice();
